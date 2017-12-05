@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table>
+    <tr>
+        <td>姓名</td>
+        <td><span id="name">...</span></td>
+    </tr>
+    <tr>
+        <td>性别</td>
+        <td><span id="sex">...</span></td>
+    </tr>
+    <tr>
+        <td>年龄</td>
+        <td><span id="age">...</span></td>
+    </tr>
+</table>
+
+<script>
+    var data = [
+        {name: '张珊', sex: '男', age: 18},
+        {name: '李四', sex: '女', age: 28},
+        {name: '王五', sex: '男', age: 8},
+    ];
+
+    var render = (function () {
+        // 自执行函数只执行了一遍
+        // 我们获得span标签的操作只执行了一遍，name、sex、age三个变量全都保存在自执行函数的作用域里面
+
+        // 获取那几个需要显示数据的span标签
+        var name = document.getElementById('name');
+        var sex = document.getElementById('sex');
+        var age = document.getElementById('age');
+
+        // 新的render函数就少了获取三个span标签的代码。因为这个render函数要执行一万遍，所以这样做可以提高性能。
+        return function (user) {
+            // 给span标签设置值
+            name.innerHTML = user.name;
+            sex.innerHTML = user.sex;
+            age.innerHTML = user.age;
+        };
+
+    })();
+
+
+    var lt = Date.now();
+    console.log(lt); // 在循环之前记录一下时间
+    for (var i = 0; i < 100000; i++) {
+        // i%3：i对3取余，必然是：0,1,2,0,1,2
+        render(data[i % 3]);
+    }
+    // 在循环之后输出一下这个循环过程中所消耗的时间
+    console.log(Date.now() - lt);
+</script>
+</body>
+</html>

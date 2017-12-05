@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../angular.js"></script>
+    <style>
+        .active {
+            background-color: lightblue;
+
+        }
+    </style>
+</head>
+<body>
+<div ng-controller="MainController">
+    <span>现在的msg是：{{model.msg}}</span>
+    <br>
+    <input type="text" ng-model="msgVM">
+    <button ng-click="save()">save</button>
+</div>
+<script>
+    var app = angular.module('s7.app', []);
+
+    app.factory('modelService', function () {
+
+        return {
+            msg: 'hello world'
+        }
+    });
+
+    app.controller('MainController', function ($scope, modelService) {
+        $scope.model = modelService;
+
+        /*
+         我们用msgVM来：
+         和界面做绑定。
+         当我们想要修改界面时，修改msgVM即可。
+         当我写从界面上获取用户输入时，直接获取msgVM的数据即可。
+         */
+        $scope.msgVM = '';
+
+        $scope.msgVM = modelService.msg;
+
+        $scope.save = function () {
+            modelService.msg = $scope.msgVM;
+        }
+    })
+
+</script>
+</body>
+</html>

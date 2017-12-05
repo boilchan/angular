@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular S7 Angular基础</title>
+    <link rel="stylesheet" href="angular-csp.css">
+    <script src="angular.js"></script>
+</head>
+
+<body>
+<!--创建控制器时，第二个参数是一个函数，-->
+<!--这个函数在AngularJs框架解析HTML时，看到ng-controller指令时，才会被调用，-->
+<!--生成一个$scope，用于和HTML标签绑定在一起。-->
+<!--在这之后，这个$scope，就在这个标签内部有效。-->
+<div ng-controller="MainController">
+    {{name}}
+</div>
+<hr>
+<div ng-controller="MainController">
+    {{name}}
+    <br>
+    <input type="text" ng-model="name">
+</div>
+<script>
+    var count = 0
+    // 今天先不要管这些代码的意义，会在明天讲，只注意那个$scope就够了
+    var app = angular.module('s7.app', []);
+    app.controller('MainController', function ($scope) {
+        count++;
+        console.log(count);
+
+        $scope.name = 'Main Controller';
+    })
+</script>
+</body>
+</html>

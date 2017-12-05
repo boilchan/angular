@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJs指令入门：简单替换</title>
+    <script src="../angular.js"></script>
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+<div style="padding: 20px;">
+    <s7-panel>
+        这里不是一个面板
+    </s7-panel>
+</div>
+<script>
+    var app = angular.module('s7.app', []);
+    app.directive('s7Panel', function () {
+
+        return {
+            template: `
+<div class="panel panel-default">
+  <div class="panel-body" ng-transclude="">
+
+  </div>
+</div>`,
+            replace: true, // 是否用template完全替换指令所指定的标签
+            transclude: true, // 用原标签里面的内容，替换模板中用ng-transclude指令标记的标签的内容
+        }
+    });
+</script>
+</body>
+</html>

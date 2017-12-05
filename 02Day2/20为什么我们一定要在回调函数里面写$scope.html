@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular S7 Angular基础</title>
+    <link rel="stylesheet" href="angular-csp.css">
+    <script src="angular.js"></script>
+</head>
+
+<body>
+<span id="target"></span>
+
+
+<script>
+
+    function render(uname, sex) {
+        var target = document.getElementById('target');
+        var temp = sex == 'f' ? '女士' : '先生';
+        target.innerHTML = "您好" + uname + ',' + temp;
+    }
+
+    render('张三','f');
+</script>
+</body>
+</html>

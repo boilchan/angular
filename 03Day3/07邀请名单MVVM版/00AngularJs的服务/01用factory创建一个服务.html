@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../angular.js"></script>
+</head>
+<body>
+
+<div ng-app="s7.app">
+    <div ng-controller="MainController">
+        <div ng-repeat="user in listData">
+            {{user.name}},{{user.phone}}
+        </div>
+    </div>
+</div>
+<script>
+    var app = angular.module('s7.app',[]);
+    // Service是服务
+    // 第一个参数：服务的名字
+    // 第二个参数：回调函数，第一次需要这个服务的时候被调用。
+    //              什么时候需要这个服务？
+    //              比如说，在Controller的回调函数中，传参dataService的时候，就需要这个服务了。
+    app.factory('dataService', function () {
+        var data = [
+            {name: '张三', phone: '18612345678', state: '邀请中'},
+            {name: '李四', phone: '18612345679', state: '邀请中'},
+            {name: '王五', phone: '18612345670', state: '邀请中'}
+        ];
+        // 别的控制器里，在回调函数的参数中写入dataService，就能拿到return的对象了。
+        // 服务对象：在控制器的回调函数中传参“dataService”时，获得的就是这个对象。
+        return {
+            getData: function () {
+                return data;
+            }
+        }
+    });
+
+    app.controller('MainController', function ($scope, dataService,$element) {
+        $scope.listData = dataService.getData();
+        console.log($element)
+    });
+
+
+</script>
+</body>
+</html>

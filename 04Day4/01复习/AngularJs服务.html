@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../angular.js"></script>
+</head>
+<body ng-controller="MainController">
+{{msg}}
+<script>
+    var app = angular.module('s7.app', []);
+
+    // 用factory来创建服务
+    // 第一个参数是服务名，第二个参数是回调函数，回调函数的返回值是我们的服务对象
+    app.factory('dataService', function () {
+
+        var result = {
+            msg: 'hello world'
+        };
+        return result;
+    });
+
+    app.controller('MainController', function ($scope, dataService) {
+
+        $scope.msg = dataService.msg
+    })
+</script>
+</body>
+</html>

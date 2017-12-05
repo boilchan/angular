@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="nameList.app">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular S7 Angular基础</title>
+    <script src="../angular.js"></script>
+    <style>
+        .bcg-lightgreen {
+            background-color: lightgreen;
+        }
+    </style>
+</head>
+<body>
+<div ng-controller="MainController">
+    <div>姓名: <input type="text" ng-model="name"> 电话： <input type="text" ng-model="phone">
+        <button ng-click="add()">邀请</button>
+    </div>
+    <div>
+        <button ng-click="changeState('全部')">全部</button>
+        <button ng-click="changeState('邀请中')">邀请中</button>
+        <button ng-click="changeState('已接受')">已接受</button>
+        <button ng-click="changeState('已拒绝')">已拒绝</button>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <th>姓名</th>
+                <th>电话</th>
+                <th>邀请状态</th>
+                <th>操作</th>
+            </tr>
+            <tr ng-repeat="guest in listData">
+                <td ng-bind="guest.name"></td>
+                <td ng-bind="guest.phone"></td>
+                <td> {{guest.state}}</td>
+                <td>
+                    <button ng-if="guest.state == '邀请中'" ng-click="guest.state = '已接受'">接受</button>
+                    <button ng-if="guest.state == '邀请中'" ng-click="guest.state = '已拒绝'">拒绝</button>
+                    <button ng-click="remove(guest)">删除</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script>
+    var app = angular.module('nameList.app', []);
+    app.controller('MainController', function ($scope) {
+        $scope.data = [
+            {name: '张三', phone: '18612345678', state: '邀请中'},
+            {name: '李四', phone: '18612345679', state: '邀请中'},
+            {name: '王五', phone: '18612345670', state: '邀请中'},
+        ];
+        // 因为不一定总是把全部数据绑定到界面上，
+        // 所以专门创建一个对象，用于保存“需要显示到界面上的数组”
+        $scope.listData = $scope.data;
+        // 当筛选的状态发生改变时，执行这个函数，更新listData（既“需要显示到界面上的数组”）
+        $scope.changeState = function(state){
+            if(state == '全部'){
+                $scope.listData = $scope.data;
+            }else{
+                $scope.listData = $scope.data.filter(function(guest){
+                    // 对于嘉宾自身的state和传入的state相等时，返回true
+                    // 则，新的listData里面全都是state为传入值的嘉宾
+                    return guest.state == state;
+                })
+            }
+        };
+
+        $scope.add = function () {
+            var guest = {name: $scope.name, phone: $scope.phone, state: "邀请中"};
+            $scope.name = '';
+            $scope.phone = '';
+            $scope.data.push(guest);
+        };
+        $scope.remove = function (guest) {
+            var index = $scope.data.indexOf(guest);
+            $scope.data.splice(index, 1);
+        }
+    })
+
+</script>
+</body>
+</html>

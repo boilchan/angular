@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../angular.js"></script>
+</head>
+<body ng-controller="MainController">
+
+<div ng-repeat="guest in data">
+    {{guest.name}},{{guest.phone}},{{guest.state}}
+</div>
+
+<script>
+    var app = angular.module('s7.app', []);
+    app.factory('modelService', function () {
+        // 存储了全部宾客信息的数组
+        var data = [];
+        // 宾客的构造函数
+        function Guest(name, phone) {
+            this.name = name;
+            this.phone = phone;
+            this.state = '邀请中'
+        };
+        Guest.prototype.accept = function () {
+            this.state = '已接受'
+        };
+        Guest.prototype.refuse = function () {
+            this.state = '已拒绝'
+        };
+
+        return {
+            // 0. 宾客的工造函数
+            Guest: Guest,
+            //1. 向数组中新增宾客的操作。
+            add: function (name, phone) {
+                data.push(new Guest(name, phone))
+            },
+            //2. 从数组中移除宾客的操作。
+            remove: function (guest) {
+                var index = data.indexOf(guest);
+                data.splice(index, 1);
+            },
+            //3. 更新宾客状态的操作：放在宾客对象的原型上了
+            //4. 根据状态获取筛选过的宾客列表的操作。
+            getGuests: function (state) {
+                if (state == '全部') {
+                    return data;
+                } else {
+                    var newArray = data.filter(function (guest) {
+                        return guest.state == state;
+                    });
+                    return newArray;
+                }
+            }
+        }
+    });
+
+    app.controller('MainController', function ($scope, modelService) {
+        modelService.add('张三', '18612345678');
+        $scope.data = modelService.getGuests('全部'); // 测试新增功能
+        console.log($scope.data.length);
+
+        modelService.remove($scope.data[0]);  // 测试删除功能
+        $scope.data = modelService.getGuests('全部');
+        console.log($scope.data.length);
+
+
+        modelService.add('张三', '18612345678'); // 测试修改与筛选功能
+        modelService.add('李四', '18612345679');
+        modelService.add('王五', '18612345670');
+
+        $scope.data = modelService.getGuests('全部');
+        $scope.data[0].accept();
+        $scope.data[1].refuse();
+
+        console.log($scope.data);
+
+
+        $scope.data = modelService.getGuests('已拒绝');
+    });
+
+
+</script>
+</body>
+</html>

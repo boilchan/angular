@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular S7 Angular基础</title>
+    <link rel="stylesheet" href="angular-csp.css">
+    <script src="angular.js"></script>
+</head>
+<body ng-controller="MainController">
+
+<table>
+    <tr>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>年龄</th>
+    </tr>
+    <!--ng-repeat用于重复生成数组中的数据-->
+    <tr ng-repeat="user in users">
+        <td>{{user.name}}</td>
+        <td>{{user.sex}}</td>
+        <td>{{user.age}}</td>
+    </tr>
+</table>
+
+<script>
+    var app = angular.module('s7.app',[]);
+    app.controller('MainController',function ($scope) {
+        $scope.users = [
+            {name:'张三',sex:'男',age:'24'},
+            {name:'李四',sex:'男',age:'14'},
+            {name:'王五',sex:'女',age:'34'},
+            {name:'赵六',sex:'女',age:'18'},
+        ]
+    })
+</script>
+</body>
+</html>

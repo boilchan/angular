@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJs指令入门：简单替换</title>
+    <script src="../angular.js"></script>
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body ng-controller="MainController">
+
+<s7-demo demo-data="points"></s7-demo>
+<button ng-click="change()">click to change</button>
+<script>
+    var app = angular.module('s7.app', []);
+    app.directive('s7Demo', function () {
+
+        return {
+            // 约束:
+            //      输入A，代表用属性的方式，指定被指令绑定的标签。
+            //      输入E，代表用标签名的方式，指定标签。
+            // 下面两种尽量避免使用：
+            //      输入C，代表用css类的方式指定标签。ng-cloak
+            //      输入M，代表用注释的方式指定标签。
+            restrict: "AE",
+            template: "<canvas></canvas>",
+            scope: {
+                demoData: "<" // 单向绑定从外部获取折线图的数据
+            },
+            replace: true,
+            // 有些时候AngularJs自己提供的绑定指令不足以满足我们的需求，
+            // 我们也可以自己写绑定，自己监听数据变化，自己更新视图
+            link: function (scope, ele, attrs) {
+
+                // 监听作用域上的数据变化，完成一个手动的数据绑定功能
+
+                var cvs = ele[0];
+                var ctx = cvs.getContext('2d');
+
+                // 当数据变化时，手动更新视图，需要用到作用域上的$watch函数
+                scope.$watch('demoData', function (points) {
+                    ctx.beginPath();
+                    ctx.clearRect(0, 0, 300, 150);
+                    ctx.moveTo(50, 100);
+                    for (var i = 0; i < points.length; i++) {
+                        ctx.lineTo(50 * i + 100, 100 - points[i]);
+                    }
+                    ctx.stroke();
+                });
+
+            }
+        }
+    });
+
+    app.controller('MainController', function ($scope) {
+        $scope.points = [25, 60, 35, 70];
+        $scope.change = function () {
+            $scope.points = [50, 14, 46, 80];
+        }
+    })
+</script>
+</body>
+</html>

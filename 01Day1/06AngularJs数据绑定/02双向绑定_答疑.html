@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular S7 Angular基础</title>
+    <link rel="stylesheet" href="angular-csp.css">
+    <script src="../angular.js"></script>
+</head>
+<body>
+<!--为什么ng-bind能控制span，但是不能绑定input？-->
+<div ng-app>
+    <div>input(ng-model)<input type="text" ng-model="text"></div>
+    input(ng-bind):<input type="text" ng-bind="text"><br>
+    <div>span(ng-bind):<span ng-bind="text"></span></div>
+    <div>input(ng-model)<input type="text" ng-model="text"></div>
+
+</div>
+</body>
+</html>

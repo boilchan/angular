@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular S7 Angular基础</title>
+    <script src="angular.js"></script>
+    <link rel="stylesheet" href="angular-csp.css">
+</head>
+<body>
+<div ng-app="s7.app">
+    <div ng-controller="MainController">
+        <div class="ng-cloak">{{name}}</div>
+    </div>
+</div>
+
+<script>
+    alert('stop!');
+    var app = angular.module('s7.app', []);
+    // $scope是我们控制器的作用域，在ng-controller指令被AngularJs解析时，调用回调函数，生成。
+    // $rootScope是我们全局的作用域，在程序启动后自己就生成了
+    app.controller('MainController', function ($scope) {
+        $scope.name = 'Main';
+    })
+</script>
+</body>
+</html>

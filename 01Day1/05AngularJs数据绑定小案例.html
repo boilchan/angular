@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="angular.js"></script>
+</head>
+<body>
+
+<div ng-app>
+    <!--把数据仓库中的"text"字段的内容绑定到span标签的内部-->
+    <div>您的输入是：<span>{{text}}</span></div>
+    <!--把数据仓库中的"text"字段，绑定到input的值上。input有输入时，text字段就会跟着改变-->
+    <div><input type="text" ng-model="text"></div>
+    <!--把数据仓库中的"text"字段，绑定到input的值上。text字段有变化时，input的值会跟着变吗？-->
+    <div><input type="text" ng-model="text"></div>
+</div>
+
+</body>
+</html>

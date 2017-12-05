@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../angular.js"></script>
+    <script src="../angular-route.js"></script>
+    <script src="index/index_ctrl.js"></script>
+    <script src="detail/detail_ctrl.js"></script>
+</head>
+<body>
+<div>AngularJs路由演示</div>
+<div>
+    <a href="#/index">index</a>
+    <a href="#/detail/1">detail_1</a>
+    <a href="#/detail/2">detail_2</a>
+    <a href="#/detail/3">detail_3</a>
+</div>
+<div ng-view>
+
+</div>
+<script>
+    // 依赖项：
+    //      ngRoute:路由模块
+    //      两个路由的分页面的控制器所属的模块
+    var app = angular.module('s7.app',['ngRoute','s7.index','s7.detail']);
+    app.config(function($routeProvider){
+        $routeProvider
+                .when('/index',{
+                    templateUrl:'index/template.html',
+                    controller:'IndexController'
+                })
+                // 允许路由传参
+                .when('/detail/:id',{
+                    templateUrl:'detail/template.html',
+                    controller:'DetailController'
+                })
+                .otherwise({
+                    // 重定向，当我们访问带“重定向”的分页面设置时，会直接访问重定向到的路径上
+                    redirectTo:'/index'
+                })
+    })
+
+</script>
+</body>
+</html>

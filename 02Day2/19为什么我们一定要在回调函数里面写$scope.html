@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular S7 Angular基础</title>
+    <link rel="stylesheet" href="angular-csp.css">
+    <script src="angular.js"></script>
+</head>
+
+<body>
+
+outer: {{name}}
+
+<div ng-controller="MainController">
+    inner: {{name}}
+</div>
+
+<script>
+    // 今天先不要管这些代码的意义，会在明天讲，只注意那个$scope就够了
+    var app = angular.module('s7.app', []);
+    app.controller('MainController', function ($rootScope, $http, $scope) {
+        $scope.name = 'Main Controller';
+        $http.get('data.json').success(function (data) {
+            console.log(data)
+        })
+    });
+</script>
+</body>
+</html>

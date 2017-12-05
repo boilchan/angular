@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>josnp服务的封装</title>
+</head>
+<body>
+<div ng-app="s7.test">
+    <div ng-controller="TestController">
+        {{data}}
+    </div>
+</div>
+<script src="../angular.js"></script>
+<script src="services/jsonp.js"></script>
+<script src="model.js"></script>
+<script>
+    var test = angular.module('s7.test', ['s7.ml.model']);
+    test.controller('TestController', function ($scope, modelService) {
+        // 传了 start，count和一个用于接收数据的callback
+//        modelService.getInTheaters(0,2,function(data){
+//            $scope.data = data;
+//        });
+
+        modelService.getTop250(0,1,function(data){
+            $scope.data = data;
+        })
+    })
+</script>
+</body>
+</html>

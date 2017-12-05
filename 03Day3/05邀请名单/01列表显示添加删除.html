@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="nameList.app">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular S7 Angular基础</title>
+    <script src="../angular.js"></script>
+    <style>
+        .bcg-lightgreen {
+            background-color: lightgreen;
+        }
+    </style>
+</head>
+<body>
+<div ng-controller="MainController">
+    <div>姓名: <input type="text" ng-model="name"> 电话： <input type="text" ng-model="phone">
+        <button ng-click="add()">邀请</button>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <th>姓名</th>
+                <th>电话</th>
+                <th>邀请状态</th>
+                <th>操作</th>
+            </tr>
+            <tr ng-repeat="guest in data">
+                <td ng-bind="guest.name"></td>
+                <td ng-bind="guest.phone"></td>
+                <td> {{guest.state}}</td>
+                <td>
+                    <button ng-click="remove(guest)">删除</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script>
+    var app = angular.module('nameList.app', []);
+    app.controller('MainController', function ($scope) {
+        $scope.data = [
+            {name: '张三', phone: '18612345678', state: '邀请中'},
+            {name: '李四', phone: '18612345679', state: '邀请中'},
+            {name: '王五', phone: '18612345670', state: '邀请中'},
+        ];
+        $scope.add = function () {
+            var guest = {name: $scope.name, phone: $scope.phone, state: "邀请中"};
+            $scope.name = '';
+            $scope.phone = '';
+            $scope.data.push(guest);
+        };
+        $scope.remove = function (guest) {
+            var index = $scope.data.indexOf(guest);
+            $scope.data.splice(index, 1);
+        }
+    })
+
+</script>
+</body>
+</html>

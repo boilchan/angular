@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../angular.js"></script>
+    <!--AngularJs路由-->
+    <script src="../angular-route.js"></script>
+    <script src="index/indexCtrl.js"></script>
+    <script src="detail/detailCtrl.js"></script>
+</head>
+<body>
+<div ng-view></div>
+
+<a href="#/index">index</a>
+<a href="#/detail">detail</a>
+<a href="#/detail/1/zhangsan">detail:1</a>
+<a href="#/detail/2/lisi">detail:2</a>
+<a href="#/detail/3/wangwu">detail:3</a>
+<script>
+    var app = angular.module('s7.app', ['ngRoute','s7.index','s7.detail']);
+    app.config(function($routeProvider){
+        $routeProvider
+                // 当我们访问index路径时，使用的分页面的HTML和控制器
+                .when('/index',{
+                    controller:"IndexController",
+                    templateUrl:'index/index.html'
+                })
+                .when('/detail/:id/:name',{
+                    controller:"DetailController",
+                    templateUrl:'detail/detail.html'
+                })
+                .otherwise({
+                    template:'<div>404您访问的资源不在那里</div>'
+                })
+    })
+</script>
+</body>
+</html>

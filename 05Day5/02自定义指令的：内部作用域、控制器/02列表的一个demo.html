@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJs指令入门：简单替换</title>
+    <script src="../angular.js"></script>
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body ng-controller="MainController">
+
+<s7-list list-title='新闻' list-data="newsArray"></s7-list>
+<s7-list list-title="公告" list-data="tipsArray"></s7-list>
+
+<script>
+    var app = angular.module('s7.app', []);
+    // 第一个参数是指令的名字，必须使用驼峰命名法。（因为我们还要把这个指令转换成标签的形式，用横杠做链接）
+    // 第二个参数是一个回调函数，这个回调函数的返回值是一个对象，
+    // 这个对象用于存储这个指令相关的数据，给AngularJs看。
+    // 这个对象的属性名（字段名）都是AngularJs规定好的。
+    app.directive('s7List', function () {
+
+        return {
+            template:`
+<div>
+    <div>{{listTitle}}</div>
+    <div>{{msg}}</div>
+    <div>
+        <div ng-repeat="item in listData">
+            {{$index}}[<a href="{{item.url}}">{{item.title}}</a>]
+        </div>
+    </div>
+</div>`,
+            scope:{
+                listTitle:'@', // 直接绑定字符串
+                listData:'<' // 单向绑定
+            },
+            controller:function($scope){
+                $scope.msg = 'Hello';
+            }
+        }
+    });
+
+    app.controller('MainController', function ($scope) {
+        $scope.title = '新闻';
+        $scope.newsArray = [
+            {title:"新闻1",url:"#"},
+            {title:"新闻2",url:"#"},
+            {title:"新闻3",url:"#"},
+            {title:"新闻4",url:"#"},
+            {title:"新闻5",url:"#"},
+            {title:"新闻6",url:"#"},
+            {title:"新闻7",url:"#"},
+            {title:"新闻8",url:"#"},
+            {title:"新闻9",url:"#"},
+        ];
+
+        $scope.tipsArray = [
+            {title:"公告1",url:"#"},
+            {title:"公告2",url:"#"},
+            {title:"公告3",url:"#"},
+            {title:"公告4",url:"#"},
+            {title:"公告5",url:"#"},
+            {title:"公告6",url:"#"},
+            {title:"公告7",url:"#"},
+            {title:"公告8",url:"#"},
+            {title:"公告9",url:"#"},
+        ]
+    })
+</script>
+</body>
+</html>

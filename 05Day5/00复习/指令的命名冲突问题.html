@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJs指令入门：简单替换</title>
+    <script src="../angular.js"></script>
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body ng-controller="MainController">
+
+<div>您好，用户{{id}}</div>
+<s7-book-info book-name="{{a}}" book-id="{{b}}"></s7-book-info>
+
+<!--<div class="page-header">-->
+    <!--<h1>{{mainTitle}}-->
+        <!--<small>{{subTitle}}</small>-->
+    <!--</h1>-->
+<!--</div>-->
+
+<script>
+    var app = angular.module('s7.app', []);
+    // app.directive用于创建AngularJs的指令。
+    // 第一个参数是：指令的名字。但是在网页上使用这个指令时，会把s7Title这种驼峰式命名改成用'-'来链接的模式；
+    // 第二个参数是回调函数：回调函数的返回值描述了我们这个指令的各种信息。
+    //      回调函数返回的对象，它的字段名，全都是AngularJs框架规定的
+    app.directive('s7BookInfo',function(){
+
+       return {
+           // template： 模板，AngularJs会把template里面的东西，替换到指令标记的标签里面去
+           template:`
+<div class="page-header">
+    <h1>{{bookName}}
+        <small>{{bookId}}</small>
+    </h1>
+</div>`,
+           scope:{
+               // scope属性里面的对象，它的key有两个角色：
+               // 1. 指令所指定的标签的属性的名字
+               // 2. 指令内部的作用域的字段的名字
+               bookId:'@',
+               bookName:'@'
+           }
+       }
+    });
+    app.controller('MainController',function($scope){
+        $scope.id = 2; //我没有这个指令之前，就有一个ID，比如说这个id是用户的ID吧
+
+        $scope.name = 'AngularJs权威教程';
+//        $scope.id = '1'; 比如说这个是书的id，指令内部需要使用，那么书的ID和用户的ID的字段都叫ID，有冲突
+
+        $scope.a = 'AngularJs权威教程';
+        $scope.b = '123456789';
+    })
+</script>
+</body>
+</html>

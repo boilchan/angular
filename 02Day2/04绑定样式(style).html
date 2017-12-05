@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular S7 Angular基础</title>
+    <script src="angular.js"></script>
+</head>
+<body ng-controller="MainController">
+<!--ng-style的用法：直接传入一个JavaScript对象。内容和我们定义style的方式类似就可以了。-->
+<div ng-style="{width:'100px',height:'100px',backgroundColor:'lightblue',border:'1px solid black'}">this is div</div>
+<div ng-style="styleDefine">this is div</div>
+
+<script>
+    // 今天先不要管这些代码的意义，会在明天讲，只注意那个$scope就够了
+    var app = angular.module('s7.app', []);
+    app.controller('MainController', function ($scope) {
+        // $scope是AngularJs框架在MainController控制器指定的HTML标签内采用的作用域对象。
+        // 现在只需要理解$scope是作用域对象，存储着数据就可以了
+        $scope.styleDefine = {
+            width: '100px',
+            height: '100px',
+            backgroundColor: 'lightblue',
+            border: '1px solid black'
+        }
+    })
+</script>
+</body>
+</html>

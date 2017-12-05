@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="#home">home</a>
+<a href="#about">about</a>
+<a href="#helloworld">helloworld</a>
+<div>现在的页面是： <span id="span_title">空</span></div>
+<script>
+    function updateSpan(title) {
+        document.getElementById('span_title').innerHTML = title;
+    }
+
+    function render() {
+        var hash = window.location.hash;
+        switch (hash) {
+            case '#home':
+                updateSpan('主页');
+                break;
+            case '#about':
+                updateSpan('关于');
+                break;
+            case '#helloworld':
+                updateSpan('你好世界');
+                break;
+        }
+    }
+
+    window.addEventListener('hashchange', function(){
+        // 当hash改变时触发的事件
+        render();
+    })
+
+    render();
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>josnp服务的封装</title>
+</head>
+<body>
+<div ng-app="s7.test">
+    <div ng-controller="TestController">
+        {{data}}
+    </div>
+</div>
+<script src="../angular.js"></script>
+<script src="services/jsonp.js"></script>
+<script>
+    var test = angular.module('s7.test', ['s7.ml.services.jsonp']);
+    test.controller('TestController', function ($scope, jsonpService) {
+        jsonpService('https://api.douban.com/v2/movie/in_theaters?start=0&count=1&callback=JSON_CALLBACK',
+                function (data) {
+                    console.log(data);
+                    $scope.data = data;
+                })
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular S7 Angular基础</title>
+    <link rel="stylesheet" href="angular-csp.css">
+    <script src="angular.js"></script>
+    <style>
+        .page {
+            height: 500px;
+        }
+        .active{
+            background: lightgreen;
+            border:1px solid grey;
+        }
+    </style>
+</head>
+<body ng-controller="MainController">
+<table>
+    <tr>
+        <td>
+            <!--显示一下当前的currentPage字段的值：调试用-->
+            current page:  <span ng-bind="currentPage"></span>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button ng-click="currentPage='home'" ng-class="{active:currentPage == 'home'}">home</button>
+            <button ng-click="currentPage='about'" ng-class="{active:currentPage == 'about'}">about</button>
+            <button ng-click="currentPage='hello world'" ng-class="{active:currentPage == 'hello world'}">hello world</button>
+        </td>
+    </tr>
+    <tr>
+        <td ng-switch="currentPage">
+            <div class="page" ng-switch-when="home"> home page</div>
+            <div class="page" ng-switch-when="about"> about page</div>
+            <div class="page" ng-switch-when="hello world"> hello world page</div>
+        </td>
+    </tr>
+</table>
+
+<script>
+    // 今天先不要管这些代码的意义，会在明天讲，只注意那个$scope就够了
+    var app = angular.module('s7.app', []);
+    app.controller('MainController', function ($scope) {
+        // 点击哪个按钮，哪个page就显示在页面中，其他的page消失
+        // 当前的page所对应的按钮要有高亮
+        $scope.currentPage = 'home'; // 记录当前显示的标签页
+    })
+</script>
+</body>
+</html>

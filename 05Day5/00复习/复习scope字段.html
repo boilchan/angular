@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJs指令入门：简单替换</title>
+    <script src="../angular.js"></script>
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body ng-controller="MainController">
+
+<s7-title s7-main-title="这里是主标题" s7-sub-title="这里是副标题"></s7-title>
+
+
+<script>
+    var app = angular.module('s7.app', []);
+    // app.directive用于创建AngularJs的指令。
+    // 第一个参数是：指令的名字。但是在网页上使用这个指令时，会把s7Title这种驼峰式命名改成用'-'来链接的模式；
+    // 第二个参数是回调函数：回调函数的返回值描述了我们这个指令的各种信息。
+    //      回调函数返回的对象，它的字段名，全都是AngularJs框架规定的
+    app.directive('s7Title',function(){
+
+       return {
+           // template： 模板，AngularJs会把template里面的东西，替换到指令标记的标签里面去
+           template:`
+<div class="page-header">
+    <h1>{{s7MainTitle}}
+        <small>{{s7SubTitle}}</small>
+    </h1>
+</div>`,
+           scope: {
+               s7MainTitle: '@',
+               s7SubTitle: '@'
+           }
+       }
+    });
+    app.controller('MainController',function($scope){
+        $scope.mainTitle = 'AngularJs课程';
+        $scope.subTitle = '指令阶段';
+    })
+</script>
+</body>
+</html>

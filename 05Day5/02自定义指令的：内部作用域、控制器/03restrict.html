@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJs指令入门：简单替换</title>
+    <script src="../angular.js"></script>
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body ng-controller="MainController">
+
+<!--<div s7-demo></div>-->
+
+<s7-demo></s7-demo>
+
+<script>
+    var app = angular.module('s7.app', []);
+    app.directive('s7Demo', function () {
+
+        return {
+            // 约束:
+            //      输入A，代表用属性的方式，指定被指令绑定的标签。
+            //      输入E，代表用标签名的方式，指定标签。
+            // 下面两种尽量避免使用：
+            //      输入C，代表用css类的方式指定标签。ng-cloak
+            //      输入M，代表用注释的方式指定标签。
+            restrict: "E",
+            template:"<div>demo</div>"
+        }
+    });
+
+    app.controller('MainController', function ($scope) {
+
+    })
+</script>
+</body>
+</html>

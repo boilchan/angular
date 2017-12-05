@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular S7 Angular基础</title>
+    <link rel="stylesheet" href="angular-csp.css">
+    <script src="angular.js"></script>
+    <style>
+        .sfq-title {
+            width: 200px;
+            height: 30px;
+            background-color: lightblue;
+            border-bottom:1px solid green;;
+        }
+
+        .sfq-content {
+            width: 200px;
+            height: 100px;
+            background-color: lightgoldenrodyellow;
+        }
+    </style>
+</head>
+
+<body>
+
+<div ng-controller="MainController">
+    <div>
+        <div class="sfq-title" ng-click="current = 'a'">a</div>
+        <div class="sfq-content" ng-if="current=='a'" ng-controller="AController">
+            name is :{{name}}<br>
+            saved value : {{savedValue}}
+            <input type="text" ng-model="value">
+            <button ng-click="changeValue(value)">save value</button>
+        </div>
+    </div>
+    <div>
+        <div class="sfq-title" ng-click="current = 'b'">b</div>
+        <div class="sfq-content" ng-if="current=='b'" ng-controller="BController">
+            name is :{{name}}<br>
+            saved value : {{savedValue}}
+            <input type="text" ng-model="value">
+            <button ng-click="changeValue(value)">save value</button>
+        </div>
+    </div>
+    <div>
+        <div class="sfq-title" ng-click="current = 'c'">c</div>
+        <div class="sfq-content" ng-if="current=='c'" ng-controller="CController">
+           name is : {{name}}<br>
+            saved value : {{savedValue}}
+            <input type="text" ng-model="value">
+            <button ng-click="changeValue(value)">save value</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var app = angular.module('s7.app',[]);
+    app.controller('MainController',function($scope){
+        $scope.current = 'a';
+        $scope.savedValue = 'no one saved';
+        $scope.changeValue = function(newValue){
+            $scope.savedValue = newValue;
+        }
+    });
+
+    // 我在三个手风琴小面板里，都可以保存一个值到全局，然后每个小面板里，都要显示这个全局的值
+
+    app.controller('AController',function($scope){
+        $scope.name = 'a';
+        $scope.value = 'this is a';
+    });
+    app.controller('BController',function($scope){
+        $scope.name = 'b';
+        $scope.value = 'this is b';
+    });
+    app.controller('CController',function($scope){
+        $scope.name = 'c';
+        $scope.value = 'this is c';
+    });
+
+
+</script>
+</body>
+</html>

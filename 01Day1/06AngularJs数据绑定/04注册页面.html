@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular S7 Angular基础</title>
+    <link rel="stylesheet" href="angular-csp.css">
+    <script src="../angular.js"></script>
+</head>
+<body ng-controller="MainController">
+
+
+<table>
+    <tr>
+        <td>用户名</td>
+        <td><input type="text" ng-model="username"></td>
+    </tr>
+    <tr>
+        <td>密码</td>
+        <td><input type="text" ng-model="password"></td>
+    </tr>
+    <tr>
+        <td>重复密码</td>
+        <td><input type="text" ng-model="confirm"></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button ng-click="submit()">点击注册</button>
+        </td>
+    </tr>
+</table>
+
+<script>
+    // 今天先不要管这些代码的意义，会在明天讲，只注意那个$scope就够了
+    var app = angular.module('s7.app', []);
+    app.controller('MainController', function ($scope) {
+        // $scope是AngularJs框架在MainController控制器指定的HTML标签内采用的作用域对象。
+        // 现在只需要理解$scope是作用域对象，存储着数据就可以了
+        $scope.sayHello = 'hello world';
+        // 这个函数在点击“注册”之后执行
+        $scope.submit = function () {
+            // 判断两个密码是不是相同
+            if($scope.password != $scope.confirm){
+                alert('两次输入的密码不一致');
+            }
+
+        }
+    })
+</script>
+</body>
+</html>

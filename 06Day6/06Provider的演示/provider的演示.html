@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../angular.js"></script>
+</head>
+<body>
+<div ng-app="s7.app">
+    <div ng-controller="MainController">
+        {{msg}},
+        <br>
+        {{url}}
+
+    </div>
+</div>
+<script>
+    var app = angular.module('s7.app', []);
+    app.provider('demoService', function () {
+        var url = 'www.baidu.com';
+        return {
+            $get: function () {
+                // 服务对象
+                return {
+                    url: url,
+                    msg: '这里是一条消息'
+                }
+            },
+            setUrl: function (newUrl) {
+                url = newUrl;
+            }
+        }
+    });
+    app.config(function(demoServiceProvider){
+        demoServiceProvider.setUrl('http://www.google.com');
+    });
+
+    app.controller('MainController', function ($scope, demoService) {
+        $scope.msg = demoService.msg;
+        $scope.url = demoService.url;
+    })
+</script>
+</body>
+</html>

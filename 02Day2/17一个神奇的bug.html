@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular S7 Angular基础</title>
+    <link rel="stylesheet" href="angular-csp.css">
+    <script src="angular.js"></script>
+</head>
+
+<body>
+<div ng-controller="MainController">
+    <span> name: {{name}}</span>
+    <br>
+    <input type="text" ng-model="name">
+    <hr>
+    <div ng-controller="SubController">
+        <span> name: {{name}}</span>
+        <br>
+        <input type="text" ng-model="name">
+    </div>
+</div>
+
+<script>
+    // 今天先不要管这些代码的意义，会在明天讲，只注意那个$scope就够了
+    var app = angular.module('s7.app', []);
+    app.controller('MainController', function ($scope) {
+        $scope.name = 'Main Controller';
+    });
+    app.controller('SubController', function ($scope) {
+        window.scope = $scope;
+    });
+</script>
+</body>
+</html>

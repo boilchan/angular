@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular S7 Angular基础</title>
+    <script src="../angular.js"></script>
+</head>
+<body>
+<div ng-app="s7.app">
+    <div ng-controller="MainController">
+        <div ng-controller="SubController" style="border: 1px solid black;margin: 10px;">
+            <div>name:{{name}}</div>
+            <div>msg:{{msg}}</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var app = angular.module('s7.app', ['s7.ctrls']);
+    app.controller('MainController', function ($scope) {
+        $scope.name = 'main'
+    });
+
+    var ctrls = angular.module('s7.ctrls',[]);
+    ctrls.controller('SubController',function($scope){
+        $scope.msg = 'this is sub'
+    })
+
+</script>
+</body>
+</html>

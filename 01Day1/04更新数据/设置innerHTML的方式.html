@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table id="tb">
+    <tr>
+        <td>姓名</td>
+        <td><span id="name">...</span></td>
+    </tr>
+    <tr>
+        <td>性别</td>
+        <td><span id="sex">...</span></td>
+    </tr>
+    <tr>
+        <td>年龄</td>
+        <td><span id="age">...</span></td>
+    </tr>
+</table>
+
+<script>
+    var data = [
+        {name: '张珊', sex: '男', age: 18},
+        {name: '李四', sex: '女', age: 28},
+        {name: '王五', sex: '男', age: 8},
+    ];
+
+    function render(user) {
+        var htmlStr = `
+    <tr>
+        <td>姓名</td>
+        <td><span id="name">` + user.name + `</span></td>
+    </tr>
+    <tr>
+        <td>性别</td>
+        <td><span id="sex">` + user.sex + `</span></td>
+    </tr>
+    <tr>
+        <td>年龄</td>
+        <td><span id="age">` + user.age + `</span></td>
+    </tr>`;
+        // 用拼接好的字符串，直接给tb标签赋值
+        document.getElementById('tb').innerHTML =htmlStr;
+
+    }
+    var lt = Date.now();
+    console.log(lt);
+    for (var i = 0; i < 10000; i++) {
+        // i%3：i对3取余，必然是：0,1,2,0,1,2
+        render(data[i % 3]);
+    }
+    console.log(Date.now() - lt);
+</script>
+</body>
+</html>

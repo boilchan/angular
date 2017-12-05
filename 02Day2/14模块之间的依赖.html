@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular S7 Angular基础</title>
+    <link rel="stylesheet" href="angular-csp.css">
+    <script src="angular.js"></script>
+</head>
+
+<body>
+<div>
+    <div ng-controller="SubController">
+        <span>controller name is: {{name}}</span>
+    </div>
+</div>
+<script>
+    // 在第二个参数的数组中，放入被依赖的模块的模块名
+    // 现在s7.app这个模块依赖s7.sub模块，于是s7.sub模块中的内容，s7.app也可以使用。
+    var app = angular.module('s7.app', ['s7.sub']);
+    app.controller('MainController', function ($scope) {
+        $scope.name = 'Main Controller';
+    });
+
+    var sub = angular.module('s7.sub', []);
+    sub.controller('SubController', function ($scope) {
+        $scope.name = 'Sub Controller';
+    })
+</script>
+</body>
+</html>

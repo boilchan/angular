@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJs指令入门：简单替换</title>
+    <script src="../angular.js"></script>
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+<div ng-controller="MainController">
+    <div style="padding: 20px;">
+        <s7-user-info></s7-user-info>
+        <button ng-click="nextUser()">下一个</button>
+    </div>
+</div>
+<script>
+    var app = angular.module('s7.app', []);
+    // app.directive用于创建AngularJs的指令。
+    // 第一个参数是：指令的名字。但是在网页上使用这个指令时，会把s7Title这种驼峰式命名改成用'-'来链接的模式；
+    // 第二个参数是回调函数：回调函数的返回值描述了我们这个指令的各种信息。
+    //      回调函数返回的对象，它的字段名，全都是AngularJs框架规定的
+    app.directive('s7UserInfo', function () {
+
+        return {
+            // template： 模板，AngularJs会把template里面的东西，替换到指令标记的标签里面去
+            template: `
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div>
+                姓名：{{name}}
+            </div>
+            <div>
+                性别：{{sex}}
+            </div>
+            <div>
+                年龄：{{age}}
+            </div>
+        </div>
+    </div>`
+        }
+    });
+
+    app.controller('MainController', function ($scope) {
+        $scope.data = [
+            {name: '张三', age: 24, sex: '男'},
+            {name: '李四', age: 14, sex: '女'},
+            {name: '王五', age: 34, sex: '男'},
+        ];
+        var index = 0;
+        $scope.nextUser = function () {
+            console.log('changed');
+            $scope.name = $scope.data[index].name;
+            $scope.age = $scope.data[index].age;
+            $scope.sex = $scope.data[index].sex;
+            index++;
+            if (index > 2) {
+                index = 0;
+            }
+        };
+        $scope.nextUser();
+    })
+</script>
+</body>
+</html>

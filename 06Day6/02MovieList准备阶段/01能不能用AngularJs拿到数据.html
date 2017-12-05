@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../angular.js"></script>
+</head>
+<body>
+<div ng-app="s7.ml.test">
+    <div ng-controller="MainController"></div>
+</div>
+<script>
+    var test = angular.module('s7.ml.test', []);
+    test.controller('MainController', function ($scope, $http) {
+        $http
+                .jsonp('https://api.douban.com/v2/movie/in_theaters?start=0&count=1&callback=JSON_CALLBACK')
+                .then(function (data) {
+                    console.log('success', data);
+                }, function (error) {
+                    console.log('error', error);
+                })
+    })
+</script>
+</body>
+</html>

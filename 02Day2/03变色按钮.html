@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular S7 Angular基础</title>
+    <script src="angular.js"></script>
+    <style>
+        .red {
+            width: 50px;
+            height: 50px;
+            background: red;
+        }
+
+        .blue {
+            width: 50px;
+            height: 50px;
+            background: lightblue;
+        }
+
+        div {
+            width: 50px;
+            height: 50px;
+            margin: 10px;
+            background: lightgreen;
+        }
+    </style>
+</head>
+<body ng-controller="MainController">
+
+<div ng-class="classDefine"></div>
+<button ng-click="changeColor()">点我变色</button>
+<script>
+    // 今天先不要管这些代码的意义，会在明天讲，只注意那个$scope就够了
+    var app = angular.module('s7.app', []);
+    app.controller('MainController', function ($scope) {
+        // $scope是AngularJs框架在MainController控制器指定的HTML标签内采用的作用域对象。
+        // 现在只需要理解$scope是作用域对象，存储着数据就可以了
+
+        // 代表了：当前状态下，启用red类，不启用blue类
+        $scope.classDefine = {
+            red: true,
+            blue: false
+        };
+        $scope.changeColor = function () {
+            // 点击这个按钮之后的事件处理：点一次div变红，再点一次div变蓝
+            // 要求：必须使用ng-class来做
+            $scope.classDefine.red = !$scope.classDefine.red;
+            $scope.classDefine.blue = !$scope.classDefine.blue;
+        }
+    })
+</script>
+</body>
+</html>

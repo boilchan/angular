@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var arr = [
+        {name: '张三', phone: '18612345678', state: '邀请中'},
+        {name: '李四', phone: '18612345679', state: '已接受'},
+        {name: '王五', phone: '18612345670', state: '已接受'},
+    ];
+
+    // 数组的过滤函数：
+    // 对数组里的每一个元素都执行我们的回调函数，只留下回调函数返回真的那些项，生成一个新的数组。
+    var newArr = arr.filter(function (user) {
+        return user.state == '已接受';
+    });
+
+    console.log(newArr);
+</script>
+</body>
+</html>

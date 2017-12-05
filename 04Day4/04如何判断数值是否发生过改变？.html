@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // 对于给定的对象obj，我们需要封装一个对象，用它来判断obj对象是否改变过其中的数值。
+    var obj = {
+        name: '张三',
+        age: 14,
+        sex: '男'
+    };
+
+    // 创建另外一个对象，记录原本obj的各种状态，
+    // 在obj**可能**发生变化之后，做一个判断，obj现在的状态和我们之前记录的状态是不是一样
+    function Scope(obj, fieldArray) { // 假设fieldArray里面的内容是['name','age']
+        this.savedValue = {};
+        this.fieldArray = fieldArray;
+        for (var i = 0; i < fieldArray.length; i++) {
+            // 假设i=0是，fieldArray[i]是'name'，obj[fieldArray[i]]是'张三'
+            var target = obj[fieldArray[i]];
+            // 就是给this.savedValue对象新增了一个'name'属性，值为'张三'
+            this.savedValue[fieldArray[i]] = target;
+            // 等我们的for循环跑完：fieldArray标记的所有属性，都被我们存储到了this.savedValue对象里面去
+        }
+    }
+
+    Scope.prototype.digest = function (obj) {
+        for (var i = 0; i < this.fieldArray.length; i++) {
+            var target = this.savedValue[this.fieldArray[i]];
+            if (target != obj[this.fieldArray[i]]) {
+                console.log(this.fieldArray[i] + '的值发生了改变，新值是:' + obj[this.fieldArray[i]]);
+            }
+        }
+    };
+
+    var scope = new Scope(obj, ['name', 'age']);
+
+    obj.name = '李四';
+    obj.sex = '女';
+
+    scope.digest(obj);
+
+
+</script>
+</body>
+</html>

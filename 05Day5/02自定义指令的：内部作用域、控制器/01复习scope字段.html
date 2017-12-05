@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJs指令入门：简单替换</title>
+    <script src="../angular.js"></script>
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body ng-controller="MainController">
+<div>{{hello}}</div>
+<s7-demo demo-at="你好" demo-equal="hello" demo-and="hello" demo-less="hello + ',世界'"></s7-demo>
+
+
+<script>
+    var app = angular.module('s7.app', []);
+    // 第一个参数是指令的名字，必须使用驼峰命名法。（因为我们还要把这个指令转换成标签的形式，用横杠做链接）
+    // 第二个参数是一个回调函数，这个回调函数的返回值是一个对象，
+    // 这个对象用于存储这个指令相关的数据，给AngularJs看。
+    // 这个对象的属性名（字段名）都是AngularJs规定好的。
+    app.directive('s7Demo', function () {
+
+        return {
+            template:`
+            <div>demoAt：{{demoAt}}</div>
+            <div>demoEqual：<input type="text" ng-model="demoEqual"></div>
+            <div>demoLess：<input type="text" ng-model="demoLess"></div>
+            <div>demoAnd：{{demoAnd()}}</div>
+            `,
+            scope:{
+                demoAt:"@", // 直接绑定字符串
+                demoEqual:"=",
+                demoLess:"<", // 绑定的是AngularJs表达式的值，单向绑定
+                demoAnd:"&" // 它绑定到指令内部作用域的，不是一个值，而是一个函数，函数执行之后能够得到值
+            }
+        }
+    });
+
+    app.controller('MainController', function ($scope) {
+        $scope.hello = '你好';
+    })
+</script>
+</body>
+</html>

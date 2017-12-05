@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="s7.app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="angular.js"></script>
+</head>
+<body ng-controller="MainController">
+<p>{{modelService.msg}}</p>
+<p>{{modelService.name}}</p>
+
+<script>
+    var app = angular.module('s7.app', []);
+    // 服务的另外一种创建方式
+    app.service('modelService',function(){
+
+        // service和factory的区别
+        // service服务对象是直接以构造函数的方式执行回调函数，得到的对象作为服务对象
+        // factory的服务对象则是回调函数的返回值
+        this.msg = 'hello world';
+        this.name = 'model service';
+    });
+
+
+    app.controller('MainController', function ($scope, modelService) {
+        $scope.modelService = modelService;
+    });
+
+
+</script>
+</body>
+</html>

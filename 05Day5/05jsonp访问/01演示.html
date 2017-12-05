@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    var count = 0;
+    // url
+    //  标准的URL应该是类似这样的网址 http://www.xx.com/xxx?a=1&b=2&callback=JSONP_CALLBACK&c=4
+    // ，callback
+    function jsonpGet(url,callback) {
+        // 首先：每有一次新的请求，都创建唯一一个函数名
+        var fnName = '__jsonp__' + count++;
+        window[fnName] = function(data){
+            callback(data);
+            document.body.removeChild(scriptELem); // 收尾工作
+        };
+        // 创建一个script标签，把script的src设置成url，把script放到body上
+        var scriptELem = document.createElement('script');
+        var newUrl = url.replace('JSONP_CALLBACK',fnName);
+        scriptELem.src = newUrl;
+        document.body.appendChild(scriptELem);
+
+    }
+
+    jsonpGet('data1.js?callback=JSONP_CALLBACK',function(data){
+        console.log(data);
+    })
+</script>
+
+</body>
+</html>
